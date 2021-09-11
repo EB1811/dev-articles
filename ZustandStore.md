@@ -21,7 +21,27 @@ In this simple example, we will retrieve and display the count variable, and hav
 [img]\
 As you can see, it's very easy to set up a Zustand store.
 
+### Async Actions
 Of course, a real world application utilizes asynchronous actions, something which is rather frustrating in redux. \
 In Zustand however, performing asynchronous actions has no additional complexity. Simply tag make the store's funciton as async, and use the await keyword to wait for actions to finish.\
+[img]
+
+### Shallow check:
+You can define how Zustand checks equality between objects by passing in an equality function as the second parameter. By default, properties are compared with strict-equality, but we can compare using shallow checks by passing in Zustand’s shallow function. The differences between default and shallow are demonstrated below.
+You can ofcourse create your own comparison function for greater control over re-rendering.
+
+
+## Middleware:
+
+Another awesome feature of Zustand is the ability to create middleware to add additional features to your store. For example, you can easily create middleware to log state changes.\
+[img]
+
+Redux Dev Tools:
+With the middleware functionality, we can easily actually use an amazing extension created for Redux, Redux DevTools [link]. We just need to import the devtools middleware, and attach it to our store.\
+[img]\
+Now we can visually see everything stored, and look through the store’s timeline, which is pretty cool.
+
+Immer + Typescript.
+Immer is another great package that makes reducing nested structures easy. We can create middleware to allow us to use immer easily. Here is a version that preserves property types.\
 [img]
 
