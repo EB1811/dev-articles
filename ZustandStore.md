@@ -45,3 +45,13 @@ Immer + Typescript.
 Immer is another great package that makes reducing nested structures easy. We can create middleware to allow us to use immer easily. Here is a version that preserves property types.\
 [img]
 
+## Testing your store:
+
+To test our store using jest, we’ll need some packages. 
+React testing library.
+Rect testing - hooks.
+
+With react-hooks-testing, it’s very easy to test the functions of our store.\
+One important thing to know is that the store’s state is kept between tests. We can deal with this in many ways. One way is to set the content of the store before each test, and another is to set up a mock of Zustand which resets the store each time; you can decide which route to take.\
+Now let's test one of our functions:\
+[img]
