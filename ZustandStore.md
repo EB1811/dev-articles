@@ -59,3 +59,6 @@ As you can see, it’s very easy to unit test our store.
 
 In case you are wondering how to test components that use the store, we can easily mock our store with the required returned values.\
 [img]
+
+## Conclusion
+Having worked with Zustand in a real production environment, I believe that it is quite useful, and powerful.
