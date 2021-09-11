@@ -26,7 +26,7 @@ Of course, a real world application utilizes asynchronous actions, something whi
 In Zustand however, performing asynchronous actions has no additional complexity. Simply tag make the store's funciton as async, and use the await keyword to wait for actions to finish.\
 [img]
 
-### Shallow check:
+### Equality Function:
 You can define how Zustand checks equality between objects by passing in an equality function as the second parameter. By default, properties are compared with strict-equality, but we can compare using shallow checks by passing in Zustand’s shallow function. The differences between default and shallow are demonstrated below.
 You can ofcourse create your own comparison function for greater control over re-rendering.
 
