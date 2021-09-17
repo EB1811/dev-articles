@@ -38,15 +38,15 @@ const planetsData = await ( await fetch("https://swapi.dev/api/planets") ).json(
 setPlanetsData(planetsData);
 ```
 ```
-    return (
-        <div>
-            <ul>
-                {planetsData.map((data: any) => {
-                    <li key={data}>{data}</li>;
-                })}
-            </ul>
-        </div>
-    );
+return (
+    <div>
+        <ul>
+            {planetsData.map((data: any) => {
+                <li key={data}>{data}</li>;
+            })}
+        </ul>
+    </div>
+);
 ```
 
 As you can see, it's very easy to set up a Zustand store.
@@ -55,11 +55,11 @@ As you can see, it's very easy to set up a Zustand store.
 Of course, a real world application utilizes asynchronous actions, something which is rather frustrating in redux. \
 In Zustand however, performing asynchronous actions has no additional complexity. Simply tag make the store's funciton as async, and use the await keyword to wait for actions to finish.
 ```
-        setPlanetsData: async () => {
-            const planetsDataApi = await ( await fetch("https://swapi.dev/api/planets") ).json();
- 
-            set({ planetsData: planetsDataApi.results });
-        }
+setPlanetsData: async () => {
+    const planetsDataApi = await ( await fetch("https://swapi.dev/api/planets") ).json();
+
+    set({ planetsData: planetsDataApi.results });
+}
 ```
 
 ### Equality Function:
