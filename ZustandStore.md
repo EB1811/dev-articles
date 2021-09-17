@@ -97,4 +97,5 @@ In case you are wondering how to test components that use the store, we can easi
 [img]
 
 ## Conclusion
-Having worked with Zustand in a real production environment, I believe that it is quite useful and powerful.
+Having worked with Zustand in a real production environment, I believe that it is quite useful and powerful.\
+While seemingly basic, custom equality functions and middleware can make Zustand a very powerful tool for central state management.
