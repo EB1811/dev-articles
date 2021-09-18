@@ -65,19 +65,40 @@ setPlanetsData: async () => {
 ### Equality Function:
 You can define how Zustand checks equality between objects by passing in an equality function as the second parameter. By default, properties are compared with strict-equality, but we can compare using shallow checks by passing in Zustand’s shallow function. The differences between default and shallow are demonstrated below.
 You can ofcourse create your own comparison function for greater control over re-rendering.
+```
+// Same behaviour when values are primitives.
+Object.is(1, 1) // True
+shallow(1, 1) // True
 
+// But when values are objects:
+Object.is({number: 1}, {number: 1}) // False
+shallow({number: 1}, {number: 1}) // True
+```
 
 ## Middleware:
 
-Another awesome feature of Zustand is the ability to create middleware to add additional features to your store. For example, you can easily create middleware to log state changes.\
-[img]
+Another awesome feature of Zustand is the ability to create middleware to add additional features to your store. For example, you can easily create middleware to log state changes.
 
-Redux Dev Tools:
-With the middleware functionality, we can easily actually use an amazing extension created for Redux, Redux DevTools [link]. We just need to import the devtools middleware, and attach it to our store.\
-[img]\
+### Redux Dev Tools:
+With the middleware functionality, we can easily actually use an amazing extension created for Redux, Redux DevTools [link]. We just need to import the devtools middleware, and attach it to our store.
+```
+import { devtools } from "zustand/middleware";
+export const useStore = create<any>(
+    devtools((set) => ({
+        planetsData: [],
+        api: {
+            setPlanetsData: async () => {
+                const planetsDataApi = await ( await fetch("https://swapi.dev/api/planets") ).json();
+
+                set({ planetsData: planetsDataApi.results });
+            },
+        },
+    }))
+);
+```
 Now we can visually see everything stored, and look through the store’s timeline, which is pretty cool.
 
-Immer + Typescript.
+### Immer + Typescript.
 Immer is another great package that makes reducing nested structures easy. We can create middleware to allow us to use immer easily. Here is a version that preserves property types.\
 [img]
 
