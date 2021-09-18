@@ -99,8 +99,47 @@ export const useStore = create<any>(
 Now we can visually see everything stored, and look through the store’s timeline, which is pretty cool.
 
 ### Immer + Typescript.
-Immer is another great package that makes reducing nested structures easy. We can create middleware to allow us to use immer easily. Here is a version that preserves property types.\
-[img]
+Immer is another great package that makes reducing nested structures easy. We can create middleware to allow us to use immer easily. Here is a version that preserves property types.
+```
+import create, { State, StateCreator } from "zustand";
+import produce, { Draft } from "immer";
+
+export type StoreAPI = {
+    setPlanetsData: () => Promise<void>;
+};
+export type StoreType = {
+    readonly planetsData: object;
+    readonly storeApi: StoreAPI;
+};
+
+const immer =
+    <T extends State>(config: StateCreator<T>): StateCreator<T> =>
+    (set, get, api) =>
+        config(
+            (partial, replace) => {
+                const nextState =
+                    typeof partial === "function"
+                        ? produce(partial as (state: Draft<T>) => T)
+                        : (partial as T);
+                return set(nextState, replace);
+            },
+            get,
+            api
+        );
+
+export const useStore = create<StoreType>(
+    immer((set, get) => ({
+        planetsData: [],
+        storeApi: {
+            setPlanetsData: async () => {
+                const planetsDataApi = await ( await fetch("https://swapi.dev/api/planets") ).json();
+
+                set({ planetsData: planetsDataApi.results });
+            },
+        },
+    }))
+);
+```
 
 ## Testing your store:
 
