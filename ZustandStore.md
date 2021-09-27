@@ -149,8 +149,30 @@ Rect testing - hooks.
 
 With react-hooks-testing, it’s very easy to test the functions of our store.\
 One important thing to know is that the store’s state is kept between tests. We can deal with this in many ways. One way is to set the content of the store before each test, and another is to set up a mock of Zustand which resets the store each time; you can decide which route to take.\
-Now let's test one of our functions:\
-[img]\
+Now let's test one of our functions:
+```
+import { act, renderHook } from "@testing-library/react-hooks";
+import { cleanup } from "@testing-library/react";
+import { useStore } from "./useStore";
+
+describe("useStore", () => {
+    afterEach(() => {
+        jest.resetAllMocks();
+        cleanup();
+    });
+
+    it("The setPlanetsData function correctly sets the planetsData variable.", () => {
+        const { result } = renderHook(() => useStore((state) => state));
+
+        act(() => {
+            result.current.api.setPlanetsData({ name: "Earth" });
+        });
+
+        expect(result.current.planetsData).toEqual({ name: "Earth" });
+    });
+});
+
+```
 As you can see, it’s very easy to unit test our store.
 
 In case you are wondering how to test components that use the store, we can easily mock our store with the required returned values.\
