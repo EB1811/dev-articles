@@ -55,7 +55,7 @@ As you can see, it's very easy to set up a Zustand store.
 Of course, a real world application utilizes asynchronous actions, something which is rather frustrating in redux. \
 In Zustand however, performing asynchronous actions has no additional complexity. Simply tag make the store's funciton as async, and use the await keyword to wait for actions to finish.
 ```
-setPlanetsData: async () => {
+getPlanetsData: async () => {
     const planetsDataApi = await ( await fetch("https://swapi.dev/api/planets") ).json();
 
     set({ planetsData: planetsDataApi.results });
@@ -85,13 +85,14 @@ With the middleware functionality, we can easily actually use an amazing extensi
 import { devtools } from "zustand/middleware";
 export const useStore = create<any>(
     devtools((set) => ({
-        planetsData: [],
+        planetsData: {},
         api: {
-            setPlanetsData: async () => {
+            getPlanetsData: async () => {
                 const planetsDataApi = await ( await fetch("https://swapi.dev/api/planets") ).json();
 
                 set({ planetsData: planetsDataApi.results });
             },
+            setPlanetsData: (data: object) => set({ planetsData: data })
         },
     }))
 );
@@ -106,6 +107,7 @@ import produce, { Draft } from "immer";
 
 export type StoreAPI = {
     setPlanetsData: () => Promise<void>;
+    setPlanetsData: (data: object) => void;
 };
 export type StoreType = {
     readonly planetsData: object;
@@ -129,13 +131,14 @@ const immer =
 
 export const useStore = create<StoreType>(
     immer((set, get) => ({
-        planetsData: [],
+        planetsData: {},
         storeApi: {
-            setPlanetsData: async () => {
+            getPlanetsData: async () => {
                 const planetsDataApi = await ( await fetch("https://swapi.dev/api/planets") ).json();
 
                 set({ planetsData: planetsDataApi.results });
             },
+            setPlanetsData: (data: object) => set({ planetsData: data })
         },
     }))
 );
