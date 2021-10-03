@@ -105,9 +105,11 @@ export const useStore = create<any>(
         planetsData: {},
         api: {
             getPlanetsData: async () => {
-                const planetsDataApi = await ( await fetch("https://swapi.dev/api/planets") ).json();
+                const planetsDataApi = await (
+                    await fetch("https://swapi.dev/api/planets")
+                ).json();
 
-                set({ planetsData: planetsDataApi.results });
+                set({ planetNames: planetsData.results.map((pd: any) => pd.name });
             },
             setPlanetsData: (data: object) => set({ planetsData: data })
         },
