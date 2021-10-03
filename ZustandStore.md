@@ -34,16 +34,30 @@ And that's it!\
 With our store created, let's import it into a React component.\
 In this simple example, we will retrieve and display the count variable, and have a button that calls our store's 'incrementCount' function.
 ```
-const planetsData = await ( await fetch("https://swapi.dev/api/planets") ).json();
-setPlanetsData(planetsData);
+const planetNames = useStore((state) => state.planetNames);
+const setPlanetsData = useStore((state) => state.api.setPlanetsData);
+ 
+useEffect(() => {
+    const populatePlanetsFromAPI = async () => {
+        const planetsData = await (
+            await fetch("https://swapi.dev/api/planets")
+        ).json();
+        setPlanetsData(planetsData.results.map((pd: any) => pd.name));
+    };
+
+    populatePlanetsFromAPI();
+}, []);
 ```
 ```
 return (
     <div>
-        <ul>
-            {planetsData.map((data: any) => {
-                <li key={data}>{data}</li>;
-            })}
+        <h1>Planet Names</h1>
+        <ul data-testId='planets-list'>
+            {planetNames.map((name: any) => (
+                <li key={name} data-testId={`planet-${name}`}>
+                    {name}
+                </li>
+            ))}
         </ul>
     </div>
 );
@@ -56,11 +70,14 @@ Of course, a real world application utilizes asynchronous actions, something whi
 In Zustand however, performing asynchronous actions has no additional complexity. Simply tag make the store's funciton as async, and use the await keyword to wait for actions to finish.
 ```
 getPlanetsData: async () => {
-    const planetsDataApi = await ( await fetch("https://swapi.dev/api/planets") ).json();
+    const planetsDataApi = await (
+        await fetch("https://swapi.dev/api/planets")
+    ).json();
 
-    set({ planetsData: planetsDataApi.results });
+    set({ planetNames: planetsData.results.map((pd: any) => pd.name });
 }
 ```
+
 
 ### Equality Function:
 You can define how Zustand checks equality between objects by passing in an equality function as the second parameter. By default, properties are compared with strict-equality, but we can compare using shallow checks by passing in Zustand’s shallow function. The differences between default and shallow are demonstrated below.
