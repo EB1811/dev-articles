@@ -68,14 +68,19 @@ As you can see, it's very easy to set up a Zustand store.
 ### Async Actions
 Of course, a real world application utilizes asynchronous actions, something which is rather frustrating in redux. \
 In Zustand however, performing asynchronous actions has no additional complexity. Simply tag make the store's funciton as async, and use the await keyword to wait for actions to finish.
+We'll move the fetch from the useEffect to the store.
 ```
 getPlanetsData: async () => {
-    const planetsDataApi = await (
+    const planetsData = await (
         await fetch("https://swapi.dev/api/planets")
     ).json();
 
-    set({ planetNames: planetsData.results.map((pd: any) => pd.name });
-}
+    set({
+        planetNames: planetsData.results.map(
+            (pd: any) => pd.name
+        ),
+    });
+},
 ```
 
 
