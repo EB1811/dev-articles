@@ -12,7 +12,8 @@ First, let's install Zustand.
 ```
 yarn add zustand # or npm install zustand
 ```
-Creating a store is a very simple process. We use Zustand's 'create' to make a react hook which we will call 'useStore'.
+Now, I'm going to be demonstrating Zustand using my testing project [starwars-searcher](https://github.com/EB1811/starwars-searcher). This is a very simple app that receives star wars planet names from the [swapi api](https://swapi.dev/), and displays them on a list.\
+Creating a store is a very simple process. We use Zustand's 'create' to make a react hook which we will call 'useStore'. I’ll avoid typing for now (we’ll talk in depth about using zustand with typescript soon).
 ```
 import create from "zustand";
 export const useStore = create<any>(
@@ -24,9 +25,9 @@ Now we wan't to set the store's initial state.\
 We'll create a variable, and a function to update that variable.
 ```
 export const useStore = create<StoreType>((set) => ({
-    planetsData: [],
+    planetNames: [],
     api: {
-        setPlanetsData: (data: any) => set({ planetsData: data }),
+        setPlanetNames: (data: any) => set({ planetNames: data }),
     },
 }));
 ```
