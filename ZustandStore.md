@@ -35,15 +35,16 @@ And that's it!\
 With our store created, let's import it into a React component.\
 In this simple example, we will retrieve and display the count variable, and have a button that calls our store's 'incrementCount' function.
 ```
+ 
 const planetNames = useStore((state) => state.planetNames);
-const setPlanetsData = useStore((state) => state.api.setPlanetsData);
+const setPlanetNames = useStore((state) => state.api.setPlanetNames);
  
 useEffect(() => {
     const populatePlanetsFromAPI = async () => {
         const planetsData = await (
             await fetch("https://swapi.dev/api/planets")
         ).json();
-        setPlanetsData(planetsData.results.map((pd: any) => pd.name));
+        setPlanetNames(planetsData.results.map((pd: any) => pd.name));
     };
 
     populatePlanetsFromAPI();
@@ -63,7 +64,6 @@ return (
     </div>
 );
 ```
-
 As you can see, it's very easy to set up a Zustand store.
 
 ### Async Actions
@@ -71,19 +71,14 @@ Of course, a real world application utilizes asynchronous actions, something whi
 In Zustand however, performing asynchronous actions has no additional complexity. Simply tag make the store's funciton as async, and use the await keyword to wait for actions to finish.
 We'll move the fetch from the useEffect to the store.
 ```
-getPlanetsData: async () => {
+getPlanetNames: async () => {
     const planetsData = await (
         await fetch("https://swapi.dev/api/planets")
     ).json();
 
-    set({
-        planetNames: planetsData.results.map(
-            (pd: any) => pd.name
-        ),
-    });
-},
+    set({ planetNames: planetsData.results.map((pd: any) => pd.name });
+}
 ```
-
 
 ### Equality Function:
 You can define how Zustand checks equality between objects by passing in an equality function as the second parameter. By default, properties are compared with strict-equality, but we can compare using shallow checks by passing in Zustand’s shallow function. The differences between default and shallow are demonstrated below.
