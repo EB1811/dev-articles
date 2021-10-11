@@ -96,6 +96,13 @@ shallow({number: 1}, {number: 1}) // True
 ## Middleware:
 
 Another awesome feature of Zustand is the ability to create middleware to add additional features to your store. For example, you can easily create middleware to log state changes.
+```
+const log = config => (set, get, api) => config(args => {
+  console.log("Applying", args)
+  set(args)
+  console.log("New State", get())
+}, get, api)
+```
 
 ### Redux Dev Tools:
 With the middleware functionality, we can easily actually use an amazing extension created for Redux, Redux DevTools [link]. We just need to import the devtools middleware, and attach it to our store.
@@ -103,16 +110,19 @@ With the middleware functionality, we can easily actually use an amazing extensi
 import { devtools } from "zustand/middleware";
 export const useStore = create<any>(
     devtools((set) => ({
-        planetsData: {},
+        planetNames: [],
         api: {
-            getPlanetsData: async () => {
-                const planetsDataApi = await (
+            getPlanetNames: async () => {
+                const planetsData = await (
                     await fetch("https://swapi.dev/api/planets")
                 ).json();
 
-                set({ planetNames: planetsData.results.map((pd: any) => pd.name });
+                set({
+                    planetNames: planetsData.results.map(
+                        (pd: any) => pd.name
+                    ),
+                });
             },
-            setPlanetsData: (data: object) => set({ planetsData: data })
         },
     }))
 );
@@ -126,12 +136,12 @@ import create, { State, StateCreator } from "zustand";
 import produce, { Draft } from "immer";
 
 export type StoreAPI = {
-    setPlanetsData: () => Promise<void>;
-    setPlanetsData: (data: object) => void;
+    gettPlanetNames: () => Promise<void>;
 };
+
 export type StoreType = {
-    readonly planetsData: object;
-    readonly storeApi: StoreAPI;
+    readonly planetNames: string[];
+    readonly api: StoreAPI;
 };
 
 const immer =
@@ -150,17 +160,24 @@ const immer =
         );
 
 export const useStore = create<StoreType>(
-    immer((set, get) => ({
-        planetsData: {},
-        storeApi: {
-            getPlanetsData: async () => {
-                const planetsDataApi = await ( await fetch("https://swapi.dev/api/planets") ).json();
+    devtools(
+        immer((set, get) => ({
+            planetNames: [],
+            api: {
+              getPlanetNames: async () => {
+                const planetsData = await (
+                    await fetch("https://swapi.dev/api/planets")
+                ).json();
 
-                set({ planetsData: planetsDataApi.results });
+                set({
+                    planetNames: planetsData.results.map(
+                        (pd: any) => pd.name
+                    ),
+                });
+              },
             },
-            setPlanetsData: (data: object) => set({ planetsData: data })
-        },
-    }))
+        }))
+    )
 );
 ```
 
@@ -184,7 +201,7 @@ describe("useStore", () => {
         cleanup();
     });
 
-    it("The setPlanetsData function correctly sets the planetsData variable.", () => {
+    it("The setPlanetNames function correctly sets the planetNames variable.", () => {
         const { result } = renderHook(() => useStore((state) => state));
 
         act(() => {
@@ -194,8 +211,8 @@ describe("useStore", () => {
         expect(result.current.planetsData).toEqual({ name: "Earth" });
     });
 });
-
 ```
+
 As you can see, it’s very easy to unit test our store.
 
 In case you are wondering how to test components that use the store, we can easily mock our store with the required returned values.
@@ -207,7 +224,8 @@ In case you are wondering how to test components that use the store, we can easi
                 infoDict: {},
                 infoNamesArr: [],
                 api: {
-                    setPlanetsData: (data) => {},
+                    setPlanetNames: (data) => {},
+                    getPlanetNames: async () => {},
                     populateWithAPI: async () => {},
                 },
             })
