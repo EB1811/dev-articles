@@ -7,13 +7,15 @@ Zustand is a modern state manager that fits nicely in this world of hooks. It is
 
 I stumbled upon Zustand when re-designing our app’s state management. The complexity of Redux and immaturity of React Context made us want to move to another state manager. Having been burned by Redux’s aforementioned complexity, Zustand drew me in with its promised simplicity, describing itself as a ‘barebones’ state manager.
 
+Now, I'm going to be demonstrating Zustand using my testing project [starwars-searcher](https://github.com/EB1811/starwars-searcher). This is a very simple app that receives star wars planet names from the [swapi api](https://swapi.dev/), and displays them on a list.\
+Creating a store is a very simple process. 
 ## How to create a store.
+
 First, let's install Zustand.
 ```
 yarn add zustand # or npm install zustand
 ```
-Now, I'm going to be demonstrating Zustand using my testing project [starwars-searcher](https://github.com/EB1811/starwars-searcher). This is a very simple app that receives star wars planet names from the [swapi api](https://swapi.dev/), and displays them on a list.\
-Creating a store is a very simple process. We use Zustand's 'create' to make a react hook which we will call 'useStore'. I’ll avoid typing for now (we’ll talk in depth about using zustand with typescript soon).
+We use Zustand's 'create' to make a react hook which we will call 'useStore'. I’ll avoid typing for now (we’ll talk in depth about using zustand with typescript soon).
 ```
 import create from "zustand";
 export const useStore = create<any>(
@@ -241,6 +243,13 @@ In case you are wondering how to test components that use the store, we can easi
     });
 ```
 
-## Conclusion
-Having worked with Zustand in a real production environment, I believe that it is quite useful and powerful.\
-While seemingly basic, custom equality functions and middleware can make Zustand a very powerful tool for central state management.
+## Final Notes
+In my opinion Zustand is a very refreshing state manager. The absence of boilerplate makes it such a nice option for personal projects where one doesn’t want to spend an afternoon setting up a store with a single variable.\
+However, this is not to say that Zustand is only suitable for small, personal projects. Having worked with Zustand in a real production environment, its advanced features make it a powerful tool on par with something like Redux.\
+While seemingly basic, custom equality functions and middleware can make Zustand a strong tool for central state management.
+
+## Other Options
+Nowadays, there's quite a bit of options for central state management; Jotai, Recoil, and React-query, among others. I haven’t looked into these, but would like to in the future.
+
+What do you think? Does zustand sound like something you’d like to use, or do you really like your current state manager?
+
