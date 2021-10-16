@@ -248,8 +248,11 @@ In my opinion Zustand is a very refreshing state manager. The absence of boilerp
 However, this is not to say that Zustand is only suitable for small, personal projects. Having worked with Zustand in a real production environment, its advanced features make it a powerful tool on par with something like Redux.\
 While seemingly basic, custom equality functions and middleware can make Zustand a strong tool for central state management.
 
-## Other Options
+### Other Options
 Nowadays, there's quite a bit of options for central state management; Jotai, Recoil, and React-query, among others. I haven’t looked into these, but would like to in the future.
 
 What do you think? Does zustand sound like something you’d like to use, or do you really like your current state manager?
 
+---
+If you enjoyed this article, please consider sharing it.\
+Checkout my [github](https://github.com/EB1811) and other [articles](https://dev.to/emmanuilsb)
