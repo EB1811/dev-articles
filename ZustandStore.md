@@ -241,6 +241,7 @@ In case you are wondering how to test components that use the store, we can easi
         expect(screen.queryByTestId("planet-Mandalore")).toBeTruthy();
     });
 ```
+I believe that the ease of testing is a great benefit of Zustand.
 
 ## Final Notes
 In my opinion Zustand is a very refreshing state manager. The absence of boilerplate makes it such a nice option for personal projects where one doesn’t want to spend an afternoon setting up a store with a single variable.\
