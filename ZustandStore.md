@@ -10,6 +10,7 @@ I stumbled upon Zustand when re-designing our app’s state management. The comp
 Now, I'm going to be demonstrating Zustand using my testing project [starwars-searcher](https://github.com/EB1811/starwars-searcher). This is a very simple app that receives star wars planet names from the [swapi api](https://swapi.dev/), and displays them on a list.
 
 ## How to create a store.
+First, let's install Zustand.
 ```
 yarn add zustand # or npm install zustand
 ```
@@ -22,7 +23,7 @@ export const useStore = create<any>(
     })
 );
 ```
-Now we wan't to set the store's initial state.\
+Now we can to set the store's initial state.\
 We'll create a variable, and a function to update that variable.
 ```
 export const useStore = create<StoreType>((set) => ({
