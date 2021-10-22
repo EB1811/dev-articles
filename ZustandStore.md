@@ -34,8 +34,8 @@ export const useStore = create<StoreType>((set) => ({
 }));
 ```
 And that's it!\
-With our store created, let's import it into a React component.\
-In this simple example, we will retrieve and display the count variable, and have a button that calls our store's 'incrementCount' function.
+With our store created, let's import it into a React component.\ 
+We’ll use it to store and render data from a star war api that this project uses.
 ```
  
 const planetNames = useStore((state) => state.planetNames);
