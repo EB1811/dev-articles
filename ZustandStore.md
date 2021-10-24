@@ -172,6 +172,28 @@ export const useStore = create<StoreType>(
     )
 );
 ```
+## Store slices.
+When working with Zustand, your store might become quite dense. Keeping all of your app’s state in one file becomes unfeasible.\
+Luckily, you can easily split your store into various functions to keep your files small and manageable.
+Here’s a simple example from Zustand’s docs.
+```
+import create from 'zustand'
+
+const createBearSlice = (set, get) => ({
+   eatFish: () => set((prev) => ({ fishes: prev.fishes > 1 ? prev.fishes - 1 : 0}))
+})
+
+const createFishSlice = (set, get) => ({
+   fishes: 10
+})
+
+const useStore = create( (set, get) => ({
+    ...createBearSlice(set, get),
+    ...createFishSlice(set, get)
+}))
+```
+As you can see, store slices can interact with each other. However, we can set up typescript to enforce slices to be separate.\
+In my testing project, I have a few more variables and functions in my store. These are used to get people, planet, and species data from the swapi api for a live search page [(link)](https://github.com/EB1811/starwars-searcher/blob/master/starwars-searcher/src/components/search/SearchPage.tsx).\
 
 ## Testing your store:
 
