@@ -278,10 +278,10 @@ describe("useStore", () => {
         const { result } = renderHook(() => useStore((state) => state));
 
         act(() => {
-            result.current.setPlanetsData({ name: "Earth" });
+            result.current.setPlanetsData(["earth"]);
         });
 
-        expect(result.current.planetsData).toEqual({ name: "Earth" });
+        expect(result.current.planetsData).toEqual(["earth"]);
     });
 });
 ```
