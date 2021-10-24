@@ -192,8 +192,67 @@ const useStore = create( (set, get) => ({
     ...createFishSlice(set, get)
 }))
 ```
-As you can see, store slices can interact with each other. However, we can set up typescript to enforce slices to be separate.\
+As you can see, store slices can interact with each other. However, if we want to keep slices separate, we can set up typescript to not allow slices to interact with each other.
+
 In my testing project, I have a few more variables and functions in my store. These are used to get people, planet, and species data from the swapi api for a live search page [(link)](https://github.com/EB1811/starwars-searcher/blob/master/starwars-searcher/src/components/search/SearchPage.tsx).\
+As an exercise, we’ll separate data used for this functionality from the planet names list we created in this article.\
+Here is the store slice for our planet names data with typescript.
+```
+import { GetState, SetState, StateCreator, StoreApi } from "zustand";
+
+export interface PlanetNamesSlice {
+    readonly planetNames: string[];
+    getPlanetNames: () => Promise<void>;
+    setPlanetNames: (data: string[]) => void;
+}
+
+const createPlanetNamesSlice:
+    | StateCreator<PlanetNamesSlice>
+    | StoreApi<PlanetNamesSlice> = (set, get) => ({
+    planetNames: [],
+    getPlanetNames: async () => {
+        const planetsData = await (
+            await fetch("https://swapi.dev/api/planets")
+        ).json();
+
+        set({
+            planetNames: planetsData.results.map((pd: any) => pd.name),
+        });
+    },
+    setPlanetNames: (data: string[]) => {
+        set({ planetNames: data });
+    },
+});
+
+export default createPlanetNamesSlice as (
+    set: SetState<PlanetNamesSlice>,
+    get: GetState<PlanetNamesSlice>,
+    api: StoreApi<PlanetNamesSlice>
+) => PlanetNamesSlice;
+```
+And we can use it to create our central store like so.
+```
+interface IStore extends PlanetNamesSlice, StarWarsDictSlice {}
+
+export const useStore = create<IStore>(
+    devtools(
+        immer((set, get, api) => ({
+            ...createPlanetNamesSlice(
+                set as unknown as SetState<PlanetNamesSlice>,
+                get as GetState<PlanetNamesSlice>,
+                api as unknown as StoreApi<PlanetNamesSlice>
+            ),
+            ...createStarWarsDictSlice(
+                set as unknown as SetState<StarWarsDictSlice>,
+                get as GetState<StarWarsDictSlice>,
+                api as unknown as StoreApi<StarWarsDictSlice>
+            ),
+        }))
+    )
+);
+
+```
+Now you have a much cleaner store with typings and typescript enforcement of slice separation.
 
 ## Testing your store:
 
