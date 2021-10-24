@@ -28,9 +28,7 @@ We'll create a variable, and a function to update that variable.
 ```
 export const useStore = create<StoreType>((set) => ({
     planetNames: [],
-    api: {
-        setPlanetNames: (data: any) => set({ planetNames: data }),
-    },
+    setPlanetNames: (data: any) => set({ planetNames: data })
 }));
 ```
 And that's it!\
@@ -39,7 +37,7 @@ We’ll use it to store and render data from a star war api that this project us
 ```
  
 const planetNames = useStore((state) => state.planetNames);
-const setPlanetNames = useStore((state) => state.api.setPlanetNames);
+const setPlanetNames = useStore((state) => state.setPlanetNames);
  
 useEffect(() => {
     const populatePlanetsFromAPI = async () => {
@@ -84,7 +82,7 @@ getPlanetNames: async () => {
 
 ### Equality Function:
 You can define how Zustand checks equality between objects by passing in an equality function as the second parameter. By default, properties are compared with strict-equality, but we can compare using shallow checks by passing in Zustand’s shallow function. The differences between default and shallow are demonstrated below.
-You can ofcourse create your own comparison function for greater control over re-rendering.
+You can also create your own comparison function for greater control over re-rendering.
 ```
 // Same behaviour when values are primitives.
 Object.is(1, 1) // True
@@ -113,18 +111,16 @@ import { devtools } from "zustand/middleware";
 export const useStore = create<any>(
     devtools((set) => ({
         planetNames: [],
-        api: {
-            getPlanetNames: async () => {
-                const planetsData = await (
-                    await fetch("https://swapi.dev/api/planets")
-                ).json();
+        getPlanetNames: async () => {
+            const planetsData = await (
+                await fetch("https://swapi.dev/api/planets")
+            ).json();
 
-                set({
-                    planetNames: planetsData.results.map(
-                        (pd: any) => pd.name
-                    ),
-                });
-            },
+            set({
+                planetNames: planetsData.results.map(
+                    (pd: any) => pd.name
+                ),
+            });
         },
     }))
 );
@@ -137,13 +133,9 @@ Immer is another great package that makes reducing nested structures easy. We ca
 import create, { State, StateCreator } from "zustand";
 import produce, { Draft } from "immer";
 
-export type StoreAPI = {
-    gettPlanetNames: () => Promise<void>;
-};
-
 export type StoreType = {
     readonly planetNames: string[];
-    readonly api: StoreAPI;
+    gettPlanetNames: () => Promise<void>;
 };
 
 const immer =
@@ -164,8 +156,7 @@ const immer =
 export const useStore = create<StoreType>(
     devtools(
         immer((set, get) => ({
-            planetNames: [],
-            api: {
+              planetNames: [],
               getPlanetNames: async () => {
                 const planetsData = await (
                     await fetch("https://swapi.dev/api/planets")
@@ -177,7 +168,6 @@ export const useStore = create<StoreType>(
                     ),
                 });
               },
-            },
         }))
     )
 );
@@ -207,7 +197,7 @@ describe("useStore", () => {
         const { result } = renderHook(() => useStore((state) => state));
 
         act(() => {
-            result.current.api.setPlanetsData({ name: "Earth" });
+            result.current.setPlanetsData({ name: "Earth" });
         });
 
         expect(result.current.planetsData).toEqual({ name: "Earth" });
@@ -225,11 +215,9 @@ In case you are wondering how to test components that use the store, we can easi
                 planetNames: ["Tatooine", "Mandalore"],
                 infoDict: {},
                 infoNamesArr: [],
-                api: {
-                    setPlanetNames: (data) => {},
-                    getPlanetNames: async () => {},
-                    populateWithAPI: async () => {},
-                },
+                setPlanetNames: (data) => {},
+                getPlanetNames: async () => {},
+                populateWithAPI: async () => {},
             })
         );
 
