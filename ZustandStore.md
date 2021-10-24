@@ -316,7 +316,7 @@ I believe that the ease of testing is a great benefit of Zustand.
 ## Final Notes
 In my opinion Zustand is a very refreshing state manager. The absence of boilerplate makes it such a nice option for personal projects where one doesn’t want to spend an afternoon setting up a store with a single variable.\
 However, this is not to say that Zustand is only suitable for small, personal projects. Having worked with Zustand in a real production environment, its advanced features make it a powerful tool on par with something like Redux.\
-While seemingly basic, custom equality functions and middleware can make Zustand a strong tool for central state management.
+While seemingly basic, custom equality functions, middleware, and store slices can make Zustand a strong tool for central state management.
 
 ### Other Options
 Nowadays, there's quite a bit of options for central state management; Jotai, Recoil, and React-query, among others. I haven’t looked into these, but would like to in the future.
