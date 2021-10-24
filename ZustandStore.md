@@ -172,7 +172,7 @@ export const useStore = create<StoreType>(
     )
 );
 ```
-## Store slices.
+## Store Slices.
 When working with Zustand, your store might become quite dense. Keeping all of your app’s state in one file becomes unfeasible.\
 Luckily, you can easily split your store into various functions to keep your files small and manageable.
 Here’s a simple example from Zustand’s docs.
