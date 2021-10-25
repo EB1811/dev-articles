@@ -2,14 +2,14 @@
 # Stop Overcomplicating your State – Try Zustand with Immer
 
 ## Intro
-With the advent of hooks a lot of React developers have started to move away from Redux as the default state management of choice. Redux seems to be an amazing tool for a bygone era, with it's opinionated nature becoming a source of frustration rather than joy.
+With the advent of hooks, a lot of React developers have started to move away from Redux as the default state management of choice. One great alternative is Zustand.\
 Zustand is a modern state manager that fits nicely in this world of hooks. It is lightweight (only 66.4 kB unpacked), fast, and hooks-based. The brilliance of Zustand is that it’s simple yet powerful.
 
 I stumbled upon Zustand when re-designing our app’s state management. The complexity of Redux and immaturity of React Context made us want to move to another state manager. Having been burned by Redux’s aforementioned complexity, Zustand drew me in with its promised simplicity, describing itself as a ‘barebones’ state manager.
 
 Now, I'm going to be demonstrating Zustand using my testing project [starwars-searcher](https://github.com/EB1811/starwars-searcher). This is a very simple app that receives star wars planet names from the [swapi api](https://swapi.dev/), and displays them on a list.
 
-## How to create a store.
+## How to create a store
 First, let's install Zustand.
 ```
 yarn add zustand # or npm install zustand
@@ -67,11 +67,11 @@ return (
 As you can see, it's very easy to set up a Zustand store.
 
 ### Async Actions
-Of course, a real world application utilizes asynchronous actions, something which is rather frustrating in redux. \
+Of course, a real world application utilizes asynchronous actions, something which is rather frustrating in redux.\
 In Zustand however, performing asynchronous actions has no additional complexity. Simply tag make the store's funciton as async, and use the await keyword to wait for actions to finish.
 We'll move the fetch from the useEffect to the store.
 ```
-getPlanetNames: async () => {
+retrievePlanetNames: async () => {
     const planetsData = await (
         await fetch("https://swapi.dev/api/planets")
     ).json();
@@ -80,7 +80,7 @@ getPlanetNames: async () => {
 }
 ```
 
-### Equality Function:
+## Equality
 You can define how Zustand checks equality between objects by passing in an equality function as the second parameter. By default, properties are compared with strict-equality, but we can compare using shallow checks by passing in Zustand’s shallow function. The differences between default and shallow are demonstrated below.
 You can also create your own comparison function for greater control over re-rendering.
 ```
@@ -93,8 +93,7 @@ Object.is({number: 1}, {number: 1}) // False
 shallow({number: 1}, {number: 1}) // True
 ```
 
-## Middleware:
-
+## Middleware
 Another awesome feature of Zustand is the ability to create middleware to add additional features to your store. For example, you can easily create middleware to log state changes.
 ```
 const log = config => (set, get, api) => config(args => {
@@ -104,7 +103,7 @@ const log = config => (set, get, api) => config(args => {
 }, get, api)
 ```
 
-### Redux Dev Tools:
+### Redux Dev Tools
 With the middleware functionality, we can easily actually use an amazing extension created for Redux, Redux DevTools [link]. We just need to import the devtools middleware, and attach it to our store.
 ```
 import { devtools } from "zustand/middleware";
@@ -116,12 +115,9 @@ export const useStore = create<any>(
                 await fetch("https://swapi.dev/api/planets")
             ).json();
 
-            set({
-                planetNames: planetsData.results.map(
-                    (pd: any) => pd.name
-                ),
-            });
+            set({ planetNames: planetsData.results.map((pd: any) => pd.name) });
         },
+        setPlanetNames: (data: any) => set({ planetNames: data })
     }))
 );
 ```
@@ -162,12 +158,9 @@ export const useStore = create<StoreType>(
                     await fetch("https://swapi.dev/api/planets")
                 ).json();
 
-                set({
-                    planetNames: planetsData.results.map(
-                        (pd: any) => pd.name
-                    ),
-                });
+                set({ planetNames: planetsData.results.map((pd: any) => pd.name) });
               },
+              setPlanetNames: (data: any) => set({ planetNames: data })
         }))
     )
 );
@@ -215,9 +208,7 @@ const createPlanetNamesSlice:
             await fetch("https://swapi.dev/api/planets")
         ).json();
 
-        set({
-            planetNames: planetsData.results.map((pd: any) => pd.name),
-        });
+        set({ planetNames: planetsData.results.map((pd: any) => pd.name) });
     },
     setPlanetNames: (data: string[]) => {
         set({ planetNames: data });
@@ -252,17 +243,16 @@ export const useStore = create<IStore>(
 );
 
 ```
-Now you have a much cleaner store with typings and typescript enforcement of slice separation.
+Now you have a much cleaner store with typings and typescript enforcement of slice separation.\
 
 ## Testing your store:
-
 To test our store using jest, we’ll need some packages. 
 React testing library.
 Rect testing - hooks.
 
 With react-hooks-testing, it’s very easy to test the functions of our store.\
 One important thing to know is that the store’s state is kept between tests. We can deal with this in many ways. One way is to set the content of the store before each test, and another is to set up a mock of Zustand which resets the store each time; you can decide which route to take.\
-Now let's test one of our functions:
+Now let's test our set function:
 ```
 import { act, renderHook } from "@testing-library/react-hooks";
 import { cleanup } from "@testing-library/react";
