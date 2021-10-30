@@ -248,8 +248,8 @@ export const useStore = create<IStore>(
 Now you have a much cleaner store with types and typescript enforcement of slice separation.
 
 ## Testing your store:
-To test our store using jest, we’ll need some packages. 
-[React testing library](https://testing-library.com/)
+To test our store using jest, we’ll need some packages.\
+[React testing library](https://testing-library.com/)\
 [Rect testing - hooks](https://github.com/testing-library/react-hooks-testing-library)
 
 With react-hooks-testing, it’s very easy to test the functions of our store.\
