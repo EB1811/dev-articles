@@ -1,7 +1,4 @@
-# Manage React State the Modern Way – Intro to Zustand
-# Stop Overcomplicating your State – Try Zustand with Immer
-
-## Intro
+# Stop Overcomplicating your State – Try Zustand
 With the advent of hooks, a lot of React developers have started to move away from Redux as the default state management of choice. One great alternative is Zustand.\
 Zustand is a modern state manager that fits nicely in this world of hooks. It is lightweight (only 66.4 kB unpacked), fast, and hooks-based. The brilliance of Zustand is that it’s simple yet powerful.
 
