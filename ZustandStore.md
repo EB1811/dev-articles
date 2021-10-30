@@ -1,4 +1,4 @@
-# Manage your State the Modern Way – Introduction to Zustand
+# Manage React State the Modern Way – Intro to Zustand
 # Stop Overcomplicating your State – Try Zustand with Immer
 
 ## Intro
@@ -7,7 +7,9 @@ Zustand is a modern state manager that fits nicely in this world of hooks. It is
 
 I stumbled upon Zustand when re-designing our app’s state management. The complexity of Redux and immaturity of React Context made us want to move to another state manager. Having been burned by Redux’s aforementioned complexity, Zustand drew me in with its promised simplicity, describing itself as a ‘barebones’ state manager.
 
-Now, I'm going to be demonstrating Zustand using my testing project [starwars-searcher](https://github.com/EB1811/starwars-searcher). This is a very simple app that receives star wars planet names from the [swapi api](https://swapi.dev/), and displays them on a list.
+I want to highlight some key aspects of Zustand, and show how it can be used in a project.
+
+I'm going to be demonstrating Zustand using my testing project [starwars-searcher](https://github.com/EB1811/starwars-searcher). This is a very simple app that utilizes the [swapi api](https://swapi.dev/) for a live search feature. Lets extend this project to retrieve star wars planet names from the api and display them on a list, using Zustand as our state manager.
 
 ## How to create a store
 First, let's install Zustand.
@@ -24,7 +26,7 @@ export const useStore = create<any>(
 );
 ```
 Now we can to set the store's initial state.\
-We'll create a variable, and a function to update that variable.
+We'll create a variable to store planet names, and a function to set that variable.
 ```
 export const useStore = create<StoreType>((set) => ({
     planetNames: [],
@@ -32,10 +34,8 @@ export const useStore = create<StoreType>((set) => ({
 }));
 ```
 And that's it!\
-With our store created, let's import it into a React component.\ 
-We’ll use it to store and render data from a star war api that this project uses.
+With our store created, let's import it into a React component to store planet names from the swapi api.\
 ```
- 
 const planetNames = useStore((state) => state.planetNames);
 const setPlanetNames = useStore((state) => state.setPlanetNames);
  
@@ -69,7 +69,7 @@ As you can see, it's very easy to set up a Zustand store.
 ### Async Actions
 Of course, a real world application utilizes asynchronous actions, something which is rather frustrating in redux.\
 In Zustand however, performing asynchronous actions has no additional complexity. Simply tag make the store's funciton as async, and use the await keyword to wait for actions to finish.
-We'll move the fetch from the useEffect to the store.
+We'll move the fetch from the useEffect to the store by adding a retrieve function.
 ```
 retrievePlanetNames: async () => {
     const planetsData = await (
@@ -104,9 +104,10 @@ const log = config => (set, get, api) => config(args => {
 ```
 
 ### Redux Dev Tools
-With the middleware functionality, we can easily actually use an amazing extension created for Redux, Redux DevTools [link]. We just need to import the devtools middleware, and attach it to our store.
+With the middleware functionality, we can easily actually use an amazing extension created for Redux, Redux DevTools [link](https://github.com/zalmoxisus/redux-devtools-extension). We just need to import the devtools middleware, and attach it to our store.
 ```
 import { devtools } from "zustand/middleware";
+
 export const useStore = create<any>(
     devtools((set) => ({
         planetNames: [],
@@ -121,17 +122,19 @@ export const useStore = create<any>(
     }))
 );
 ```
-Now we can visually see everything stored, and look through the store’s timeline, which is pretty cool.
+Now we can visually see everything stored, and look through the store’s timeline, which is very cool and useful.
 
 ### Immer + Typescript.
-Immer is another great package that makes reducing nested structures easy. We can create middleware to allow us to use immer easily. Here is a version that preserves property types.
+[Immer](https://github.com/immerjs/immer) is another great package that makes reducing nested structures easy.\
+We can create middleware to allow us to use immer easily. Here is a fully typed version.
 ```
 import create, { State, StateCreator } from "zustand";
 import produce, { Draft } from "immer";
 
 export type StoreType = {
     readonly planetNames: string[];
-    gettPlanetNames: () => Promise<void>;
+    getPlanetNames: () => Promise<void>;
+    setPlanetNames: (data: any) => void;
 };
 
 const immer =
@@ -243,12 +246,12 @@ export const useStore = create<IStore>(
 );
 
 ```
-Now you have a much cleaner store with typings and typescript enforcement of slice separation.\
+Now you have a much cleaner store with types and typescript enforcement of slice separation.\
 
 ## Testing your store:
 To test our store using jest, we’ll need some packages. 
-React testing library.
-Rect testing - hooks.
+[React testing library](https://testing-library.com/)
+[Rect testing - hooks](https://github.com/testing-library/react-hooks-testing-library)
 
 With react-hooks-testing, it’s very easy to test the functions of our store.\
 One important thing to know is that the store’s state is kept between tests. We can deal with this in many ways. One way is to set the content of the store before each test, and another is to set up a mock of Zustand which resets the store each time; you can decide which route to take.\
@@ -260,6 +263,7 @@ import { useStore } from "./useStore";
 
 describe("useStore", () => {
     afterEach(() => {
+        // You can chose to set the store's state to a default value here.
         jest.resetAllMocks();
         cleanup();
     });
@@ -275,38 +279,38 @@ describe("useStore", () => {
     });
 });
 ```
-
 As you can see, it’s very easy to unit test our store.
 
 In case you are wondering how to test components that use the store, we can easily mock our store with the required returned values.
 ```
- it("Component gets data from the store.", async () => {
-        jest.spyOn(Store, "useStore").mockImplementation((fn) =>
-            fn({
-                planetNames: ["Tatooine", "Mandalore"],
-                infoDict: {},
-                infoNamesArr: [],
-                setPlanetNames: (data) => {},
-                getPlanetNames: async () => {},
-                populateWithAPI: async () => {},
-            })
-        );
+it("Component gets data from the store.", async () => {
+    jest.spyOn(Store, "useStore").mockImplementation((fn) =>
+        fn({
+            planetNames: ["Tatooine", "Mandalore"],
+            infoDict: {},
+            infoNamesArr: [],
+            setPlanetNames: (data) => {},
+            getPlanetNames: async () => {},
+            populateWithAPI: async () => {},
+        })
+    );
 
-        render(<PlanetsMap />);
+    render(<PlanetsMap />);
 
-        const listOfPlanets = screen.getByTestId("planets-list");
-        expect(listOfPlanets.children).toHaveLength(2);
+    const listOfPlanets = screen.getByTestId("planets-list");
+    expect(listOfPlanets.children).toHaveLength(2);
 
-        expect(screen.queryByTestId("planet-Tatooine")).toBeTruthy();
-        expect(screen.queryByTestId("planet-Mandalore")).toBeTruthy();
-    });
+    expect(screen.queryByTestId("planet-Tatooine")).toBeTruthy();
+    expect(screen.queryByTestId("planet-Mandalore")).toBeTruthy();
+});
 ```
 I believe that the ease of testing is a great benefit of Zustand.
 
 ## Final Notes
 In my opinion Zustand is a very refreshing state manager. The absence of boilerplate makes it such a nice option for personal projects where one doesn’t want to spend an afternoon setting up a store with a single variable.\
 However, this is not to say that Zustand is only suitable for small, personal projects. Having worked with Zustand in a real production environment, its advanced features make it a powerful tool on par with something like Redux.\
-While seemingly basic, custom equality functions, middleware, and store slices can make Zustand a strong tool for central state management.
+While seemingly basic, custom equality functions, middleware, and store slices can make Zustand a strong tool for central state management.\
+Looking at some of the downsides, Zustand's middleware is very type unfriendly, an issue that Zustand is currently looking at [link](https://github.com/pmndrs/zustand/pull/601). Also, Zustand's documentation could use some more work, such as showing how to handle nested state, how best to test our stores, and detailing how to handle multiple middlewares.
 
 ### Other Options
 Nowadays, there's quite a bit of options for central state management; Jotai, Recoil, and React-query, among others. I haven’t looked into these, but would like to in the future.
