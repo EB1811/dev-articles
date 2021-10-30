@@ -77,6 +77,7 @@ retrievePlanetNames: async () => {
     set({ planetNames: planetsData.results.map((pd: any) => pd.name });
 }
 ```
+We can now simply use this function in the useEffect.
 
 ## Equality
 You can define how Zustand checks equality between objects by passing in an equality function as the second parameter. By default, properties are compared with strict-equality, but we can compare using shallow checks by passing in Zustand’s shallow function. The differences between default and shallow are demonstrated below.
