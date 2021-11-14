@@ -23,7 +23,9 @@ true && function()
 ```
 
 ### Includes
+```
 ['A', 'B', 'C'].includes('B')
+```
 
 ### For Of
 ```
