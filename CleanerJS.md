@@ -38,7 +38,7 @@ When using the AND (&&) operator, the right side expression is only evaluated if
 // returns 'this'
 true && 'this'
 ```
-Short circuiting with the AND(&&) operator allows you to evaluate a condition before you call a function.
+Short circuiting with the && operator allows you to evaluate a condition before you call a function.
 For example, before calling a function, you can check if a variable is true before proceeding.
 ```javascript
 // calls func() if 'variable' is true
