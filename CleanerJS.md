@@ -1,6 +1,6 @@
 # Writing cleaner JavaScript with ES6+ (How many do you know?)
 
-### Nullish coalescing operator
+## Nullish coalescing operator
 The nullish coalescing operator is amazing when working with possibly undefined data.\
 This operator tells JavasSript to return the data on its right side when its left side is null or undefined (nullish).
 ```javascript
@@ -11,11 +11,11 @@ This way, you can pass a default value, and avoid constantly checking if the dat
 // returns 'default value'
 null ?? 'default value'
 ```
-#### Note vs OR operator
+### Note vs OR operator
 A lot of people think this is what the OR || operator does.\
 However, the OR operator returns its right side when the left side is FALSY, not just nullish. This includes data such as 0 and ''.
 
-### Optional chaining
+## Optional chaining
 ```javascript
 ?.
 ```
@@ -28,29 +28,33 @@ return object?.property2
 ```
 Optional chaining can be used to avoid having a conditional statment every time there is some data that can be possibly undefined, making your code significantly cleaner.
 
-### Logical AND Short-circuit Evaluation
+---
+### Tip: Nullish coalescing and Optional chaining is best used with TypeScript, since you'll know exactly when to use them.
+---
+
+## Logical AND Short-circuit Evaluation
 ```javascript
 true && function()
 ```
 
-### Destructuring 
+## Destructuring 
 ```javascript
 {...O, }  {id: idLabel} = O
 
 [...A, ]  [property, ...A]
 ```
 
-### Includes
+## Includes
 ```javascript
 ['A', 'B', 'C'].includes('B')
 ```
 
-### For Of
+## For Of
 ```javascript
 for (const item of array) console.log(item)
 ```
 
-### Unique primitive array 
+## Unique primitive array 
 ```javascript
 new Set([...a, ...b])
 ```
