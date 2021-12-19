@@ -55,8 +55,15 @@ variable && func()
 ## Rest
 
 ## Includes
+Array.includes() is a way of checking if an array contains something.\
+This can be used to as a way of avoiding multiple if or case statements, shortening your code, as well as making it more readable.
 ```javascript
-['A', 'B', 'C'].includes('B')
+// instead of this
+if(var === 'A' || var === 'B' || var === 'C')
+  return var
+// do this
+if(['A', 'B', 'C'].includes(var)) 
+  return var
 ```
 
 ## For Of
