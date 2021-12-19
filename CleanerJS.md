@@ -52,6 +52,8 @@ variable && func()
 [...A, ]  [property, ...A]
 ```
 
+## Rest
+
 ## Includes
 ```javascript
 ['A', 'B', 'C'].includes('B')
