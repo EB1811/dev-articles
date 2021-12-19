@@ -33,8 +33,16 @@ Optional chaining can be used to avoid having a conditional statment every time 
 ---
 
 ## Logical AND Short-circuit Evaluation
+When using the AND (&&) operator, the right side expression is only evaluated if the first value is truthy.
 ```javascript
-true && function()
+// returns 'this'
+true && 'this'
+```
+Short circuiting with the AND(&&) operator allows you to evaluate a condition before you call a function.
+For example, before calling a function, you can check if a variable is true before proceeding.
+```javascript
+// calls func() if 'variable' is true
+variable && func()
 ```
 
 ## Destructuring 
