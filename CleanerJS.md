@@ -71,11 +71,16 @@ Looping can be done much cleaner using 'for of' and '.forEach()', rather than a 
 A big point for using forEach() is that it can be chained, making your code much more concise and readable.
 ```javascript
 // a tiny amount of code for looping over wanted items in an array.
+// can be chained further for more complicated cases.
 arr.filter((i) => i > 0).forEach((v, i) => console.log(v));
 ```
-
+On the downside, there are a lot of edge cases when using forEach(), such as not including empty elements and not working quite right with async/await code.\
+For such cases, its best to use 'for of', which is also pretty concise while not having many edge cases as forEach() or 'for in'. 
 ```javascript
-for (const item of array) console.log(item)
+// for performing the same function as above, not as concise for more complicated cases but more robust.
+for (const i of arr.filter((i) => i > 0)) console.log(i)
+// or
+for (const i of arr) if(i > 0) console.log(i)
 ```
 
 ## Unique primitive array 
