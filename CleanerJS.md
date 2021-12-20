@@ -66,7 +66,14 @@ if(['A', 'B', 'C'].includes(var))
   return var
 ```
 
-## For Of
+## For Of & forEach()
+Looping can be done much cleaner using 'for of' and '.forEach()', rather than a traditional for loop.\
+A big point for using forEach() is that it can be chained, making your code much more concise and readable.
+```javascript
+// a tiny amount of code for looping over wanted items in an array.
+arr.filter((i) => i > 0).forEach((v, i) => console.log(v));
+```
+
 ```javascript
 for (const item of array) console.log(item)
 ```
