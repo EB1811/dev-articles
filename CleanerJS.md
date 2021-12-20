@@ -45,52 +45,6 @@ For example, before calling a function, you can check if a variable is true befo
 variable && func()
 ```
 
-## Spread syntax (...)
-The spread syntax has multiple uses useful when trying to keep code consice.\
-When used with arrays, it can be used to combine two ararys, or insert something in to an array.
-```javascript
-// combine two arrays, inserting '3' in between the two.
-const arr1 = [1, 2]
-const arr2 = [4, 5]
-
-[...arr1, 3, ...arr2] // = [1, 2, 3, 4, 5]
-```
-Similarly, with objects, we can use the spread syntax to clone another object, while also being able to add new properties.
-```javascript
-// create a new object with the same properties as obj1 and obj2, while also adding another property 'newProperty'.
-const obj1 = {property1: 'p1'}
-const obj2 = {property2: 'p2'}
-
-const newObj = {...obj1, ...obj2, newProperty: 'newP'}
-// newObj = {property1: 'p1', property2: 'p2', newProperty: 'newP'}
-```
-
-```javascript
-{...O, }  {id: idLabel} = O
-
-[...A, ]  [property, ...A]
-```
-
-## Destructuring and the Rest Operator (...)
-Destructuring can be used in many contexts to get distinct variables from array values or object properties.\
-This is a great way of getting deeply nested object properties.
-```javascript
-// getting the 'id' property from obj, under the variable name of 'idLabel'.
-const obj = {id: 1}
-
-const {id: idLabel} = obj // instead of const idLabel = obj.id
-// idLabel = 1
-```
-Similarly, the rest operator can be used to seperate out properties from an object.\
-This is useful for quickly copying an object while removing some properties.
-```javascript
-// copying obj1, removing the 'unwanted' property
-const obj = {id: 1, unwanted: 2}
-
-const {unwanted, ...newObj} = obj
-// newObj = {id: 1}
-```
-
 ## Includes
 Array.includes() is a way of checking if an array contains something.\
 This can be used to as a way of avoiding multiple if or case statements, shortening your code, as well as making it more readable.
@@ -120,7 +74,47 @@ for (const i of arr.filter((i) => i > 0)) console.log(i)
 for (const i of arr) if(i > 0) console.log(i)
 ```
 
-## Remove duplicates from an array
+## Spread syntax (...)
+The spread syntax has multiple uses useful when trying to keep code consice.\
+When used with arrays, it can be used to combine two ararys, or insert something in to an array.
+```javascript
+// combine two arrays, inserting '3' in between the two.
+const arr1 = [1, 2]
+const arr2 = [4, 5]
+
+[...arr1, 3, ...arr2] // = [1, 2, 3, 4, 5]
+```
+Similarly, with objects, we can use the spread syntax to clone another object, while also being able to add new properties.
+```javascript
+// create a new object with the same properties as obj1 and obj2, while also adding another property 'newProperty'.
+const obj1 = {property1: 'p1'}
+const obj2 = {property2: 'p2'}
+
+const newObj = {...obj1, ...obj2, newProperty: 'newP'}
+// newObj = {property1: 'p1', property2: 'p2', newProperty: 'newP'}
+```
+
+## Destructuring and the Rest Operator (...)
+Destructuring can be used in many contexts to get distinct variables from array values or object properties.\
+This is a great way of cleanly getting deeply nested object properties.
+```javascript
+// getting the 'id' property from obj, under the variable name of 'idLabel'.
+const obj = {id: 1}
+
+const {id: idLabel} = obj // instead of const idLabel = obj.id
+// idLabel = 1
+```
+Similarly, the rest operator can be used to seperate out properties from an object.\
+This is useful for quickly copying an object while removing some properties.
+```javascript
+// copying obj1, removing the 'unwanted' property.
+const obj = {id: 1, unwanted: 2}
+
+const {unwanted, ...newObj} = obj
+// newObj = {id: 1}
+```
+
+## Bonus: Remove duplicates from an array
 Want a quick way of removing duplicate primitive elements from an array? Its very easy with a tiny bit of code using 'new Set()'.\
 Combining this with other clean code techniques can lead to some very powerful actions with minimal, yet readable, code.
 ```javascript
