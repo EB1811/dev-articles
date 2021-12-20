@@ -55,6 +55,15 @@ const arr2 = [4, 5]
 
 [...arr1, 3, ...arr2] // = [1, 2, 3, 4, 5]
 ```
+Similarly, with objects, we can use the spread syntax to clone another object, while adding in new properties in the spread or in another object.
+```javascript
+// create a new object with the same properties as obj1 and obj2, while also adding another property 'newProperty'.
+const obj1 = {property1: 'p1'}
+const obj2 = {property2: 'p2'}
+
+const newObj = {...obj1, ...obj2, newProperty: 'newP'}
+// newObj = {property1: 'p1', property2: 'p2', newProperty: 'newP'}
+```
 
 ```javascript
 {...O, }  {id: idLabel} = O
@@ -97,7 +106,7 @@ for (const i of arr) if(i > 0) console.log(i)
 Want a quick way of removing duplicate primitive elements from an array? Its very easy with a tiny bit of code using 'new Set()'.\
 Combining this with other clean code techniques can lead to some very powerful actions with minimal, yet readable, code.
 ```javascript
-// using destructuring to combine two arrays, removing duplicates (a union).
+// using set with the spread syntax to combine two arrays, removing duplicates (a union).
 const arr1 = [1, 2, 3]
 const arr2 = [3, 4, 5]
 
