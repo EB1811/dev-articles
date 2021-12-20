@@ -83,7 +83,7 @@ for (const i of arr.filter((i) => i > 0)) console.log(i)
 for (const i of arr) if(i > 0) console.log(i)
 ```
 
-## Unique primitive array
+## Remove duplicates from an array
 Want a quick way of removing duplicate primitive elements from an array? Its very easy with a tiny bit of code using 'new Set()'.\
 Combining this with other clean code techniques can lead to some very powerful actions with minimal, yet readable, code.
 ```javascript
@@ -91,5 +91,5 @@ Combining this with other clean code techniques can lead to some very powerful a
 const arr1 = [1, 2, 3]
 const arr2 = [3, 4, 5]
 
-new Set([...arr1, ...arr2]) // equals [1, 2, 3, 4, 5]
+[...new Set([...arr1, ...arr2])] // equals [1, 2, 3, 4, 5] as an array
 ```
