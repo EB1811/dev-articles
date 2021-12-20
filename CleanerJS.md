@@ -55,7 +55,7 @@ const arr2 = [4, 5]
 
 [...arr1, 3, ...arr2] // = [1, 2, 3, 4, 5]
 ```
-Similarly, with objects, we can use the spread syntax to clone another object, while adding in new properties in the spread or in another object.
+Similarly, with objects, we can use the spread syntax to clone another object, while also being able to add new properties.
 ```javascript
 // create a new object with the same properties as obj1 and obj2, while also adding another property 'newProperty'.
 const obj1 = {property1: 'p1'}
@@ -71,7 +71,25 @@ const newObj = {...obj1, ...obj2, newProperty: 'newP'}
 [...A, ]  [property, ...A]
 ```
 
-## Rest
+## Destructuring and the Rest Operator (...)
+Destructuring can be used in many contexts to get distinct variables from array values or object properties.\
+This is a great way of getting deeply nested object properties.
+```javascript
+// getting the 'id' property from obj, under the variable name of 'idLabel'.
+const obj = {id: 1}
+
+const {id: idLabel} = obj // instead of const idLabel = obj.id
+// idLabel = 1
+```
+Similarly, the rest operator can be used to seperate out properties from an object.\
+This is useful for quickly copying an object while removing some properties.
+```javascript
+// copying obj1, removing the 'unwanted' property
+const obj = {id: 1, unwanted: 2}
+
+const {unwanted, ...newObj} = obj
+// newObj = {id: 1}
+```
 
 ## Includes
 Array.includes() is a way of checking if an array contains something.\
