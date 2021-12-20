@@ -45,7 +45,17 @@ For example, before calling a function, you can check if a variable is true befo
 variable && func()
 ```
 
-## Destructuring 
+## Spread syntax (...)
+The spread syntax has multiple uses useful when trying to keep code consice.\
+When used with arrays, it can be used to combine two ararys, or insert something in to an array.
+```javascript
+// combine two arrays, inserting '3' in between the two.
+const arr1 = [1, 2]
+const arr2 = [4, 5]
+
+[...arr1, 3, ...arr2] // = [1, 2, 3, 4, 5]
+```
+
 ```javascript
 {...O, }  {id: idLabel} = O
 
