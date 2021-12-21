@@ -53,9 +53,12 @@ This way, you can avoid the need to write a verbose if statement before calling 
 variable && func()
 ```
 
-## Includes
-Array.includes() is a way of checking if an array contains something.\
-This can be used to as a way of avoiding multiple if or case statements, shortening your code, as well as making it more readable.
+## Includes()
+Array.includes() is a way of checking if an array contains something.
+```javascript
+[1, 2, 3].includes(2) // returns true
+```
+This can be used to as a way of avoiding multiple conditional checks, shortening your code, as well as making it more readable.
 ```javascript
 // instead of this
 if(var === 'A' || var === 'B' || var === 'C')
