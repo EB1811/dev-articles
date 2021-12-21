@@ -1,31 +1,39 @@
 # Writing cleaner JavaScript with ES6+ (How many do you know?)
 
-## Nullish coalescing operator
+## Nullish coalescing operator (??)
 The nullish coalescing operator is amazing when working with possibly undefined data.\
 This operator tells JavasSript to return the data on its right side when its left side is null or undefined (nullish).
 ```javascript
 // returns 'default value'
 null ?? 'default value'
 ```
-This way, you can pass a default value, and avoid constantly checking if the data is nullish.
+This operator can be used to define a default value for possibly nullish data, avoiding verbose code checking if some data is not defined.
 ```javascript
-func(var ?? 'default')
+// we pass a default string into our function if 'name' is not defined.
+customFunc(name ?? 'default')
 ```
 ### Note vs OR operator
-A lot of people think this is what the OR || operator does.\
-However, the OR operator returns its right side when the left side is FALSY, not just nullish. This includes data such as 0 and ''.
+A lot of people think this is what the OR (||) operator does.\
+However, the OR operator returns its right side when the left side is **falsy**, not just nullish. This includes data such as 0 and ''.
 
-## Optional chaining
-```javascript
-?.
-```
+## Optional chaining (?.)
 Using optional chaining, when accessing properties, if any property reference is nullish, the expression returns undefined instead of causing an error.
 ```javascript
-const object = {property1: '1'}
+const object = {
+  property1: {
+    name: 'P1'
+  }
+}
 
 // returns undefined and doesn't cause an error
-return object?.property2
+return object.property2?.name
 ```
+This also works when calling functions.
+```javascript
+// will call 'customFunc' if it exists on 'object', or return undefined if not.
+object.customFunc?.()
+```
+
 Optional chaining can be used to avoid having a conditional statment every time there is some data that can be possibly undefined, making your code significantly cleaner.
 
 ---
