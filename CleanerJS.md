@@ -37,7 +37,7 @@ object.customFunc?.()
 Optional chaining can be used to avoid having a conditional statment every time there is some data that can be possibly undefined, making your code significantly cleaner.
 
 ---
-### Tip: Nullish coalescing and Optional chaining is best used with TypeScript, since you'll know exactly when to use them.
+### Tip: The nullish coalescing and optional chaining operators are best used with TypeScript, since you'll know exactly when to use them.
 ---
 
 ## Logical AND Short-circuit Evaluation
@@ -63,6 +63,7 @@ This can be used to as a way of avoiding multiple conditional checks, shortening
 // instead of this
 if(var === 'A' || var === 'B' || var === 'C')
   return var
+  
 // do this
 if(['A', 'B', 'C'].includes(var)) 
   return var
@@ -77,7 +78,7 @@ A big point for using forEach() is that it can be chained, making your code much
 arr.filter((i) => i > 0).forEach((v, i) => console.log(v));
 ```
 On the downside, there are a lot of edge cases when using forEach(), such as not including empty elements and not working quite right with async/await code.\
-For such cases, its best to use 'for of', which is also pretty concise while not having many edge cases as forEach() or 'for in'. 
+For such cases, its best to use 'for of', which is also pretty concise while not having as many edge cases as forEach() or 'for in'. 
 ```javascript
 // for performing the same function as above, not as concise for more complicated cases but more robust.
 for (const i of arr.filter((i) => i > 0)) console.log(i)
@@ -85,9 +86,9 @@ for (const i of arr.filter((i) => i > 0)) console.log(i)
 for (const i of arr) if(i > 0) console.log(i)
 ```
 
-## Spread syntax (...)
+## Spread Syntax (...)
 The spread syntax has multiple uses useful when trying to keep code consice.\
-When used with arrays, it can be used to combine two ararys, or insert something in to an array.
+When used with arrays, it can be used to combine two arrays, or insert something in to an array.
 ```javascript
 // combine two arrays, inserting '3' in between the two.
 const arr1 = [1, 2]
@@ -109,10 +110,14 @@ const newObj = {...obj1, ...obj2, newProperty: 'newP'}
 Destructuring can be used in many contexts to get distinct variables from array values or object properties.\
 This is a great way of cleanly getting deeply nested object properties.
 ```javascript
-// getting the 'id' property from obj, under the variable name of 'idLabel'.
+// getting the 'id' property from obj.
 const obj = {id: 1}
 
-const {id: idLabel} = obj // instead of const idLabel = obj.id
+const {id} = obj
+// id = 1
+
+// or we can have a custom variable name.
+const {id: idLabel} = obj
 // idLabel = 1
 ```
 Similarly, the rest operator can be used to seperate out properties from an object.\
@@ -125,7 +130,7 @@ const {unwanted, ...newObj} = obj
 // newObj = {id: 1}
 ```
 
-## Bonus: Remove duplicates from an array
+## Bonus: Remove Duplicates from an Array
 Want a quick way of removing duplicate primitive elements from an array? Its very easy with a tiny bit of code using 'new Set()'.\
 Combining this with other clean code techniques can lead to some very powerful actions with minimal, yet readable, code.
 ```javascript
