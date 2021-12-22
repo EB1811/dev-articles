@@ -26,11 +26,12 @@ const object = {
 }
 
 // returns undefined and doesn't cause an error
-return object.property2?.name
+object.property2?.name
 ```
 This also works when calling functions.
 ```javascript
-// will call 'customFunc' if it exists on 'object', or return undefined if not.
+// will call 'customFunc' if it exists on 'object',
+// or returns undefined if not.
 object.customFunc?.()
 ```
 
@@ -75,30 +76,36 @@ A big point for using forEach() is that it can be chained, making your code much
 ```javascript
 // a tiny amount of code for looping over wanted items in an array.
 // can be chained further for more complicated cases.
-arr.filter((i) => i > 0).forEach((v, i) => console.log(v));
+arr.filter((i) => i > 0)
+   .forEach((v, i) => console.log(v));
 ```
 On the downside, there are a lot of edge cases when using forEach(), such as not including empty elements and not working quite right with async/await code.\
 For such cases, its best to use 'for of', which is also pretty concise while not having as many edge cases as forEach() or 'for in'. 
 ```javascript
-// for performing the same function as above, not as concise for more complicated cases but more robust.
-for (const i of arr.filter((i) => i > 0)) console.log(i)
+// for performing the same function as above.
+// not as concise for more complicated cases but more robust.
+for (const i of arr.filter((i) => i > 0)) 
+  console.log(i)
 // or
-for (const i of arr) if(i > 0) console.log(i)
+for (const i of arr) 
+  if(i > 0) console.log(i)
 ```
 
 ## Spread Syntax (...)
 The spread syntax has multiple uses useful when trying to keep code consice.\
 When used with arrays, it can be used to combine two arrays, or insert something in to an array.
 ```javascript
-// combine two arrays, inserting '3' in between the two.
+// combine two arrays, inserting '3' between the two.
 const arr1 = [1, 2]
 const arr2 = [4, 5]
 
-[...arr1, 3, ...arr2] // = [1, 2, 3, 4, 5]
+const newArr = [...arr1, 3, ...arr2]
+// newArr = [1, 2, 3, 4, 5]
 ```
 Similarly, with objects, we can use the spread syntax to clone another object, while also being able to add new properties.
 ```javascript
-// create a new object with the same properties as obj1 and obj2, while also adding another property 'newProperty'.
+// create a new object with the same properties as obj1 and obj2,
+// while also adding another property 'newProperty'.
 const obj1 = {property1: 'p1'}
 const obj2 = {property2: 'p2'}
 
@@ -138,5 +145,6 @@ Combining this with other clean code techniques can lead to some very powerful a
 const arr1 = [1, 2, 3]
 const arr2 = [3, 4, 5]
 
-[...new Set([...arr1, ...arr2])] // equals [1, 2, 3, 4, 5] as an array
+const arr3 = [...new Set([...arr1, ...arr2])] 
+// arr3 = [1, 2, 3, 4, 5] as an array
 ```
