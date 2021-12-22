@@ -1,8 +1,8 @@
-# Writing cleaner JavaScript with ES6+ (How many do you know?)
+# Techniques for writing cleaner JavaScript with ES6+ (How many do you know?)
 
 ## Nullish coalescing operator (??)
 The nullish coalescing operator is amazing when working with possibly undefined data.\
-This operator tells JavasSript to return the data on its right side when its left side is null or undefined (nullish).
+This operator tells JavaScript to return the data on its right side when its left side is null or undefined (nullish).
 ```javascript
 // returns 'default value'
 null ?? 'default value'
@@ -35,7 +35,7 @@ This also works when calling functions.
 object.customFunc?.()
 ```
 
-Optional chaining can be used to avoid having a conditional statment every time there is some data that can be possibly undefined, making your code significantly cleaner.
+Optional chaining can be used to avoid having a conditional statement every time there is some data that can be possibly undefined, making your code significantly cleaner.
 
 ---
 ### Tip: The nullish coalescing and optional chaining operators are best used with TypeScript, since you'll know exactly when to use them.
@@ -47,7 +47,7 @@ When using the AND (&&) operator, the right side expression is only evaluated if
 // returns 'this'
 true && 'this'
 ```
-Short circuiting with the && operator allows you to evaluate a condition before you call a function.\
+Short-circuiting with the && operator allows you to evaluate a condition before you call a function.\
 This way, you can avoid the need to write a verbose if statement before calling something. 
 ```javascript
 // calls func() if 'variable' is true
@@ -80,7 +80,7 @@ arr.filter((i) => i > 0)
    .forEach((v, i) => console.log(v));
 ```
 On the downside, there are a lot of edge cases when using forEach(), such as not including empty elements and not working quite right with async/await code.\
-For such cases, its best to use 'for of', which is also pretty concise while not having as many edge cases as forEach() or 'for in'. 
+For such cases, it's best to use 'for of', which is also pretty concise while not having as many edge cases as forEach() or 'for in'. 
 ```javascript
 // for performing the same function as above.
 // not as concise for more complicated cases but more robust.
@@ -92,7 +92,7 @@ for (const i of arr)
 ```
 
 ## Spread Syntax (...)
-The spread syntax has multiple uses useful when trying to keep code consice.\
+The spread syntax has multiple uses, useful when trying to keep code concise.\
 When used with arrays, it can be used to combine two arrays, or insert something in to an array.
 ```javascript
 // combine two arrays, inserting '3' between the two.
@@ -127,7 +127,7 @@ const {id} = obj
 const {id: idLabel} = obj
 // idLabel = 1
 ```
-Similarly, the rest operator can be used to seperate out properties from an object.\
+Similarly, the rest operator can be used to separate out properties from an object.\
 This is useful for quickly copying an object while removing some properties.
 ```javascript
 // copying obj1, removing the 'unwanted' property.
@@ -138,7 +138,7 @@ const {unwanted, ...newObj} = obj
 ```
 
 ## Bonus: Remove Duplicates from an Array
-Want a quick way of removing duplicate primitive elements from an array? Its very easy with a tiny bit of code using 'new Set()'.\
+Want a quick way of removing duplicate primitive elements from an array? It's very easy with a tiny bit of code using 'new Set()'.\
 Combining this with other clean code techniques can lead to some very powerful actions with minimal, yet readable, code.
 ```javascript
 // using set with the spread syntax to combine two arrays, removing duplicates (a union).
