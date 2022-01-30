@@ -38,3 +38,15 @@ Need to store field text + api result items (planets).
 Events
 Emit event on every character entered into the search field that filters the api result items.
 
+Props
+Pass filtered list into DisplayList component.
+
+Ifs and Loops
+Display list of planets.
+
+Asynchronous rendering
+Render a loading page while waiting for the results from the api.
+
+Stores
+Store api result items in store.
+
