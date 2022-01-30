@@ -26,3 +26,15 @@ This will copy the svelte starter template into your desired folder..
 To enable typescript, go into your new svelte folder, and run node scripts/setupTypeScript.js
 Now all you need to do is install the necessary files by running npm install.
 
+—
+Component features.
+Script - html - style.
+
+Replace App.svelte
+
+Variables + reactivity
+Need to store field text + api result items (planets).
+
+Events
+Emit event on every character entered into the search field that filters the api result items.
+
