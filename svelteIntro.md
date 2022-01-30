@@ -19,4 +19,10 @@ As you can see, there is HTML that looks like HTML, CSS that looks like CSS, and
 Before we start learning how to use Svelte, please share this article and follow me for more quality work.
 —
 
-To introduce Svelte, let’s create a simple single page app where users can use a live search bar to filter a list of star wars planets using the [Swapi api](). In essence, this is the same as my previous tutorial React app [here](), which I think will nicely illustrate the difference between the two frameworks. The full, completed code for this app will be on my github ([link]()).
+To introduce Svelte, let’s create a simple single page app where users can use a live search bar to filter a list of star wars planets using the [Swapi api](). This will demonstrate all the core features of Svelte in a useful, demonstrable way. Additionally, this is similar to the functionality in my tutorial React app [here](), which I think will nicely illustrate the difference between the two frameworks. The full, completed code for this app will be on my github ([link]()).
+
+Let’s first install basic Svelte. To do this, run npx degit sveltejs/template project-name.
+This will copy the svelte starter template into your desired folder..
+To enable typescript, go into your new svelte folder, and run node scripts/setupTypeScript.js
+Now all you need to do is install the necessary files by running npm install.
+
