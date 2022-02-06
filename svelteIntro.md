@@ -22,13 +22,15 @@ Before we start learning how to use Svelte, please share this article and follow
 To introduce Svelte, let’s create a simple single page app where users can use a live search bar to filter a list of star wars planets using the [Swapi api](). This will demonstrate all the core features of Svelte in a useful, demonstrable way. Additionally, this is similar to the functionality in my tutorial React app [here](), which I think will nicely illustrate the difference between the two frameworks. The full, completed code for this app will be on my github ([link]()).
 
 Let’s first install basic Svelte. To do this, run npx degit sveltejs/template project-name.
-This will copy the svelte starter template into your desired folder..
+This will copy the svelte starter template into your desired folder.
 To enable typescript, go into your new svelte folder, and run node scripts/setupTypeScript.js
 Now all you need to do is install the necessary files by running npm install.
 
 —
 Component features.
 Script - html - style.
+A svelte component is a file ending with .svelte. As you can see in App.svelte, a Svelte component can be pretty simple. A svelte file can contain three parts, html, a script tag to put your javascript, and a style tag to place css. This is similar to Vue, just without the boilerplate code.
+Clear the script and html contents of App.svelte, and let’s use the given css in the style tag.
 
 Replace App.svelte
 
