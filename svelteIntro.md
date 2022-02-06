@@ -46,6 +46,25 @@ This can then be displayed in the app by using curly braces {}.
 <h1>{name}</h1>
 ```
 
+For our app, to search through pokemon names, we’ll need an input field, and a variable to store the entered pokemon name.
+```javascript
+let pokemonName: string = ''
+```
+To make this variable the contents of the input field, we can use a special svelte keyword ‘bind’, which enables two way binding of the ‘pokemonName’ variable’.
+```javascript
+<span>Search: </span>
+ <input type="text" bind:value="{pokemonName}" />
+
+<h1>Pokemon: {pokemonName}</h1>
+```
+As you can see, typing into the input field changes the output of the pokemon title.
+
+For this sample app, we will need to store pokemon names from the pokeapi in a variable as an array of strings.
+```javascript
+let pokemonData: string[] = []
+```
+
+
 Events
 Emit event on every character entered into the search field that filters the api result items.
 
