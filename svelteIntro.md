@@ -36,6 +36,15 @@ Replace App.svelte
 
 Variables + reactivity
 Need to store field text + api result items (planets).
+We can create a string variable and display it in the DOM very easily.
+In the script tag, create a variable like so
+```javascript
+let name: string = ‘pokemon searcher’
+```
+This can then be displayed in the app by using curly braces {}.
+```javascript
+<h1>{name}</h1>
+```
 
 Events
 Emit event on every character entered into the search field that filters the api result items.
