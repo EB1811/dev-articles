@@ -111,6 +111,39 @@ We can make the variable that holds the filtered pokemon names into a reactive d
 So, ‘suggestions’ is an array of pokemon names that includes the string entered in the input field.
 The reactive assignment doesn’t work with typescript, so we can declare a ‘suggestions’ variable normally to preserve type checks.
 
+### Loops
+We’ll want to display the contents of this ‘suggestions’ array on the page, and we can do this by using a svelte loop. Svelte has a special keyword ‘each’ that enables us to display DOM elements for each item in the given iterable.
+To display each pokemon name, simply use the each keyword to loop over the ‘pokemonData’ variable.
+```javascript
+<main>
+<span>Search: </span>
+ <input type="text" bind:value="{pokemonName}" />
+
+ {#each suggestions as suggestion}
+<h2>{suggestion}</h2>
+{/each}
+</main>
+```
+As we type into the input field, we can see the list of suggestions change. Pretty cool for such simple code.
+
+### Conditional Rendering
+Svelte has other keywords. Another useful one is #if.
+The #if keyword allows for conditional logic.
+For example, we can render a loading screen while we fetch the data from the pokeapi.
+```javascript
+<main>
+ {#if pokemonData && pokemonData.length > 0}
+<span>Search: </span>
+ <input type="text" bind:value="{pokemonName}" />
+
+ {#each suggestions as suggestion}
+<h2>{suggestion}</h2>
+{/each}
+{:else}
+<h2>Loading...</h2>
+{/if}
+</main>
+```
 
 
 
