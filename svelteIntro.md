@@ -91,6 +91,28 @@ import { onMount } from 'svelte'
 ```
 We now have a list of pokemon names in the ‘pokemonData’ array, which we can use in our simple project.
 
+### Reactive Declarations
+For the live search feature, we need to have an array that holds the items filtered by the user input from the pokemon names.
+
+Svelte has an awesome tool to deal with states that are derived from other properties, reactive declarations.
+They look like this.
+```javascript
+$: reactiveVar = otherVar * 2;
+```
+Now, ‘reactiveVar’ is a variable, but its value is computed every time the ‘otherVar’ variable changes (svelte runs the computation when the variables used in that computation changes).
+We can make the variable that holds the filtered pokemon names into a reactive declaration. We’ll call this ‘suggestions’.
+```javascript
+    let suggestions: string[]
+    $: suggestions =
+        pokemonName.length > 0
+            ? pokemonData.filter((name) => name.includes(pokemonName))
+            : pokemonData
+```
+So, ‘suggestions’ is an array of pokemon names that includes the string entered in the input field.
+The reactive assignment doesn’t work with typescript, so we can declare a ‘suggestions’ variable normally to preserve type checks.
+
+
+
 
 Events
 Emit event on every character entered into the search field that filters the api result items.
