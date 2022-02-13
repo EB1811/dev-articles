@@ -145,7 +145,48 @@ For example, we can render a loading screen while we fetch the data from the pok
 </main>
 ```
 
+### Components & Props
+Props are used to pass data from one component to another. This is fairly standard for frameworks, and the syntax for this is very simple.
+To signal that a component accepts a prop, an export keyword is used for a variable.
+```javascript
+<script lang="ts">
+    export let stringProp: string
+</script>
+```
+Now, to pass the value for ‘stringProp’, simply use the name of the exported variable when writing the component.
+```javascript
+<script lang="ts">
+    import NewComponent from './NewComponent.svelte'
+</script>
 
+<NewComponent  stringProp="prop value"  />
+```
+For this app, let’s create a component for each suggestion.
+Create a file ‘Suggestion.svelte’, and simply accept and display a ‘suggestion’ prop.
+```javascript
+<script lang="ts">
+    export let suggestion: string
+</script>
+
+<div class="suggestion">{suggestion}</div>
+
+<style>
+    .suggestion {
+        font-size: 1.25rem;
+    }
+</style>
+
+```
+Now, we can import this component and use it in our #each loop.
+```javascript
+import Suggestion from './Suggestion.svelte'
+```
+```javascript
+{#each suggestions as suggestion}
+<Suggestion suggestion="{suggestion}"/>
+{/each}
+```
+This is pretty pointless at the moment, so let’s add some logic to the ‘Suggestion’ component in the form of events.
 
 Events
 Emit event on every character entered into the search field that filters the api result items.
