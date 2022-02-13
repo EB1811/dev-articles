@@ -34,10 +34,9 @@ Clear the script and html contents of App.svelte, and let’s use the given css 
 
 Replace App.svelte
 
-Variables + reactivity
-Need to store field text + api result items (planets).
+### Variables + reactivity
+Variables are created in the script tag. 
 We can create a string variable and display it in the DOM very easily.
-In the script tag, create a variable like so
 ```javascript
 let name: string = ‘pokemon searcher’
 ```
@@ -46,23 +45,51 @@ This can then be displayed in the app by using curly braces {}.
 <h1>{name}</h1>
 ```
 
-For our app, to search through pokemon names, we’ll need an input field, and a variable to store the entered pokemon name.
-```javascript
-let pokemonName: string = ''
+To search through pokemon names, we’ll need an input field and a variable that holds the contents of that field.
 ```
-To make this variable the contents of the input field, we can use a special svelte keyword ‘bind’, which enables two way binding of the ‘pokemonName’ variable’.
-```javascript
+<script lang="ts">
+let pokemonName: string = ''
+</script>
+```
+To make the ‘pokemonName’ variable equal to the contents of the input field, we can use a special svelte keyword ‘bind’, which enables two way binding of the ‘pokemonName’ variable’.
+```
+<main>
 <span>Search: </span>
  <input type="text" bind:value="{pokemonName}" />
 
 <h1>Pokemon: {pokemonName}</h1>
+</main>
 ```
-As you can see, typing into the input field changes the output of the pokemon title.
+Now, typing into the input field changes the output of the pokemon title.
+This bind keyword enables two way binding without using an ‘onInput’ function that changes the value of the ‘pokemonName’ variable like in React.
 
-For this sample app, we will need to store pokemon names from the pokeapi in a variable as an array of strings.
+
+### onMount & Async Fetching
+For this sample app, we store pokemon names from the pokeapi in a variable as an array of strings.
 ```javascript
 let pokemonData: string[] = []
 ```
+We want to fetch the data and map it as soon as the component is rendered.
+For this, we can use ‘onMount’, which is a svelte lifecycle function that runs after the component is first rendered to the DOM. Let’s use this to fetch from the pokeapi and map it into an array of pokemon names.
+```javascript
+import { onMount } from 'svelte'
+```
+```javascript
+    let pokemonData: string[] = []
+    onMount(() => {
+        const setPokemonData = async (): Promise<void> => {
+            const rawPokemonData = await (
+                await fetch('https://pokeapi.co/api/v2/pokemon?limit=99')
+            ).json()
+
+            pokemonData = rawPokemonData.results.map(
+                (p: { name: string; url: string }) => p.name
+            )
+        }
+        setPokemonData()
+      })
+```
+We now have a list of pokemon names in the ‘pokemonData’ array, which we can use in our simple project.
 
 
 Events
@@ -73,9 +100,6 @@ Pass filtered list into DisplayList component.
 
 Ifs and Loops
 Display list of planets.
-
-Asynchronous rendering
-Render a loading page while waiting for the results from the api.
 
 Stores
 Store api result items in store.
