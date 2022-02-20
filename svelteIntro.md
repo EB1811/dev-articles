@@ -188,14 +188,50 @@ import Suggestion from './Suggestion.svelte'
 ```
 This is pretty pointless at the moment, so let’s add some logic to the ‘Suggestion’ component in the form of events.
 
-Events
-Emit event on every character entered into the search field that filters the api result items.
+### Events
+Custom events can be dispatched from one component to another. This allows us to have parent-child communication.
+For our app, we want to be able to click on a suggestion to select our pokemon. We can do this by dispatching a custom event from the ‘Suggestion’ component to the App component, and then setting the value of a variable which holds our chosen pokemon.
 
-Props
-Pass filtered list into DisplayList component.
+First, create the new ‘chosenPokemon’ variable, and display it on the screen in App.svelte.
+```javascript
+let chosenPokemon: string = ''
+```
+```javascript
+<h2>Chosen Pokemon: {chosenPokemon}</h2>
+```
 
-Ifs and Loops
-Display list of planets.
+Now, in Suggestion.svelte, let’s dispatch a custom ‘chosePokemon’ event when clicking on a suggestion.
+To create a custom event, we need to import the ‘createEventDispatcher’ from svelte.
+```javascript
+<script lang="ts">
+    import { createEventDispatcher } from 'svelte'
+
+    export let suggestion: string
+
+    const dispatch = createEventDispatcher()
+    const chosePokemon = (): void => {
+        dispatch('chosePokemon', {
+            pokemon: suggestion
+        })
+    }
+</script>
+```
+We now have a ‘chosePokemon’ function that dispatches a custom ‘'chosePokemon' event to the parent component.
+To call this function when clicking on a suggestion, we need to use a svelte event ‘on:click’ like this.
+```javascript
+<div class="suggestion" on:click="{chosePokemon}">{suggestion}</div>
+```
+Back in the App.svelte file, we can handle this custom event by using the on:(event name) syntax.
+```javascript
+<Suggestion suggestion="{suggestion}" 
+on:chosePokemon="{(e) => {
+chosenPokemon = e.detail.pokemon
+}}"
+/>
+```
+This handler sets the value of the chosenPokemon variable to be equal to the pokemon name passed in the custom event.
+When we click on a suggestion, that pokemon name is shown.
+I set the ‘chosenPokemon’ variable this way to introduce custom events, however, there is a much cleaner and easier way of doing this, bind forwarding.
 
 Stores
 Store api result items in store.
