@@ -233,6 +233,27 @@ This handler sets the value of the chosenPokemon variable to be equal to the pok
 When we click on a suggestion, that pokemon name is shown.
 I set the ‘chosenPokemon’ variable this way to introduce custom events, however, there is a much cleaner and easier way of doing this, bind forwarding.
 
+### Bind Forwarding
+Bind Forwarding
+We saw how the bind keyword was used to set up two way binding when creating an input field, but this keyword can also be used across our components, allowing two way information binding.
+In App.svelte, replace the chosePokemon event handler with a bind keyword on a chosenPokemon prop.
+```javascript
+<Suggestion suggestion="{suggestion}" bind:chosenPokemon />
+```
+In the Suggestion.svelte file, accept this prop, remove the unneeded custom event dispatching code, and make the on:click code simply set the chosenPokemon variable.
+```javascript
+<script lang="ts">
+    export let suggestion: string
+    export let chosenPokemon: string = ''
+</script>
+
+<div class="suggestion" on:click="{() => (chosenPokemon = suggestion)}">
+    {suggestion}
+</div>
+```
+We now have the same functionality as before using a fraction of the code.
+
+
 Stores
 Store api result items in store.
 
