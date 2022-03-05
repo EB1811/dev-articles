@@ -257,3 +257,12 @@ We now have the same functionality as before using a fraction of the code.
 Stores
 Store api result items in store.
 
+### Conclusion
+Svelte stands out in the cluttered world of JavaScript frameworks by not compromising user experience for developer experience or vice versa. Svelte provides fantastic tools to make developing apps easy, while it’s compiler results in a tiny package for end users, reducing download times significantly.
+Svelte has been among the most loved frameworks for a while now, even as its usage grows, a potential sign that it will become as big as Vue or React. This coincides with the recent push towards a more performant web, moving away from crazy large JavaScript packages served to the client towards server-side or hybrid rendering.
+The Svelte team is now working on SvelteKit, which is Svelte’s version of Next.js, which you can learn about [here](https://kit.svelte.dev/).
+
+—
+If you enjoyed this article, please consider sharing it.
+Checkout my [github](https://github.com/EB1811) and other [articles](https://dev.to/emmanuilsb).
+
